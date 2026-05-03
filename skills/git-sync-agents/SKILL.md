@@ -8,9 +8,29 @@ description: 维护 ~/.agents 与远程 GitHub 仓库的双向同步
 - 远程仓库: `https://github.com/Slarper/agents.git`
 - 本地路径: `~/.agents`
 
+## PAT 获取
+
+按以下优先级读取 Personal Access Token：
+
+1. 读取 `~/.agents/.env` 中的 `GITHUB_FINE_GRAINED_PERSONAL_ACCESS_TOKEN`
+2. 环境变量 `GITHUB_FINE_GRAINED_PERSONAL_ACCESS_TOKEN`
+
+将读取到的值赋给 `$TOKEN` 变量，后续所有 `<token>` 替换为 `$TOKEN`。
+
 ## 行为
 
 当用户调用时，执行以下步骤。
+
+### Step 0: 获取 Personal Access Token
+
+```bash
+if [ -f ~/.agents/.env ]; then
+  source ~/.agents/.env
+fi
+TOKEN="${GITHUB_FINE_GRAINED_PERSONAL_ACCESS_TOKEN}"
+```
+
+若 `$TOKEN` 为空，则向用户询问 PAT。
 
 ### Step 1: 确保 ~/.agents 是合法的 git 仓库
 
@@ -22,13 +42,13 @@ git init
 git branch -m main
 git config user.email "naivesimple@outlook.com"
 git config user.name "Slarper"
-git remote add origin https://<token>@github.com/Slarper/agents.git
+git remote add origin https://${TOKEN}@github.com/Slarper/agents.git
 ```
 
 如果 `.git` 存在但 remote 未配置（`git remote get-url origin` 失败），则添加 remote：
 
 ```bash
-git remote add origin https://<token>@github.com/Slarper/agents.git
+git remote add origin https://${TOKEN}@github.com/Slarper/agents.git
 ```
 
 ### Step 2: 处理未暂存的本地改动
@@ -98,6 +118,6 @@ git push origin main
 
 ## 安全注意事项
 
-1. 用户需提供 Personal Access Token，嵌入 remote URL 使用
-2. PAT 不会被提交到仓库
+1. 通过 `.env` 或环境变量读取 PAT，嵌入 remote URL 使用
+2. PAT 不会被提交到仓库（`.env` 已加入 `.gitignore`）
 3. 建议使用 fine-grained token，授予 agents 仓库 Contents: Write 权限
