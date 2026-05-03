@@ -45,7 +45,7 @@ done
 然后拉取远程内容：
 
 ```bash
-git pull origin main --rebase
+git pull origin main
 ```
 
 拉取完成后，将临时移走的 skill 目录逐个移回 `skills/`：
