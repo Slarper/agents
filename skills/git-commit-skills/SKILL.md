@@ -27,11 +27,43 @@ git remote add origin https://<token>@github.com/Slarper/agents.git
 
 ### Step 2: 拉取远程最新内容
 
+先检查 `skills/` 下是否有未跟踪的本地 skill 目录：
+
+```bash
+git ls-files --others --directory skills/
+```
+
+如果有，将每个未跟踪的 skill 目录临时移到 `/tmp/agents-merge/` 下：
+
+```bash
+mkdir -p /tmp/agents-merge
+for dir in $(git ls-files --others --directory skills/ | sed 's:/$::' | sort -u); do
+  mv "$dir" "/tmp/agents-merge/"
+done
+```
+
+然后拉取远程内容：
+
 ```bash
 git pull origin main --rebase
 ```
 
-处理冲突：如果存在冲突，告知用户手动解决。
+拉取完成后，将临时移走的 skill 目录逐个移回 `skills/`：
+
+```bash
+for dir in /tmp/agents-merge/*/; do
+  skill_name=$(basename "$dir")
+  if [ -d "skills/$skill_name" ]; then
+    echo "CONFLICT:$skill_name"
+  else
+    mv "$dir" skills/
+  fi
+done
+```
+
+对于每个标记为 `CONFLICT` 的 skill，向用户提供两个选项：
+- **选项1**: 删除本地版本，仅保留远程版本 → 执行 `rm -rf /tmp/agents-merge/<skill_name>`
+- **选项2**: 保留双方，本地版本重命名为 `<skill_name>-local` → 执行 `mv /tmp/agents-merge/<skill_name> skills/<skill_name>-local`
 
 ### Step 3: 暂存并提交本地变更
 
