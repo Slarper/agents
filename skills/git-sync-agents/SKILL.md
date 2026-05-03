@@ -33,22 +33,36 @@ git remote add origin https://<token>@github.com/Slarper/agents.git
 
 ### Step 2: 处理未暂存的本地改动
 
-如果 `git status --porcelain` 有输出，先 stash：
+如果 `git status --porcelain` 有输出，先 stash（包括未跟踪文件）：
 
 ```bash
-git stash push -m "git-sync-auto-stash"
+git stash push -u -m "git-sync-auto-stash"
 ```
 
 ### Step 3: 拉取远程内容
 
-检查远程仓库是否为空（无提交）：
+先 fetch 远程信息：
 
 ```bash
-git ls-remote origin HEAD | head -1
+git fetch origin main
 ```
 
-- **无输出（空仓库）**: 跳过 pull，直接进入 Step 4。
-- **有输出（非空仓库）**: 执行 `git pull origin main`。如果 pull 产生冲突，逐一向用户提供选项：
+判断远程是否有内容以及本地与远程是否有关联历史：
+
+```bash
+if ! git rev-parse origin/main >/dev/null 2>&1; then
+  # 远程空仓库 — 跳过 pull
+  echo "Remote empty, skip pull"
+elif git rev-parse HEAD >/dev/null 2>&1 && git merge-base HEAD origin/main >/dev/null 2>&1; then
+  # 有关联历史 — 正常 pull
+  git pull origin main
+else
+  # 无关联历史（首次 init 后 pull，或因机器 B 首次同步） — 允许无关联
+  git pull origin main --allow-unrelated-histories
+fi
+```
+
+如果 pull 产生冲突，逐一向用户提供选项：
   - **保留远程版本** → `git checkout --theirs <path>` 后 `git add <path>`
   - **保留本地版本** → `git checkout --ours <path>` 后 `git add <path>`
   冲突全部解决后 `git commit -m "Merge remote into local"`。
