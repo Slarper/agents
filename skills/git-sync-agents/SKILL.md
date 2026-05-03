@@ -1,5 +1,5 @@
 ---
-name: git-commit-skills
+name: git-sync-agents
 description: 维护 ~/.agents 与远程 GitHub 仓库的双向同步
 ---
 
