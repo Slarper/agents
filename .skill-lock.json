@@ -9,6 +9,24 @@
       "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
       "installedAt": "2026-05-02T01:44:23.821Z",
       "updatedAt": "2026-05-02T01:44:23.821Z"
+    },
+    "read-arxiv-paper": {
+      "source": "karpathy/nanochat",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/karpathy/nanochat.git",
+      "skillPath": ".claude/skills/read-arxiv-paper/SKILL.md",
+      "skillFolderHash": "5ad1ea92246f068afd3cd29fa7754f70d651a702",
+      "installedAt": "2026-05-03T02:57:34.648Z",
+      "updatedAt": "2026-05-03T02:57:34.648Z"
+    },
+    "firecrawl-scrape": {
+      "source": "firecrawl/cli",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/firecrawl/cli.git",
+      "skillPath": "skills/firecrawl-scrape/SKILL.md",
+      "skillFolderHash": "1784b33814a99a615d765ad16aaa069a1ae79577",
+      "installedAt": "2026-05-03T04:59:00.827Z",
+      "updatedAt": "2026-05-03T04:59:00.827Z"
     }
   },
   "dismissed": {}
