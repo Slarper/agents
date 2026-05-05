@@ -1,0 +1,123 @@
+---
+name: git-mastery
+description: 为任意本地目录配置 git 远程仓库（含 PAT 鉴权），提供 init / push / pull 等粒度可控的操作工具
+---
+
+## 配置读取
+
+执行任何操作前，先读取凭证：
+
+```bash
+if [ -f ~/.agents/.env ]; then
+  source ~/.agents/.env
+fi
+TOKEN="${GITHUB_FINE_GRAINED_PERSONAL_ACCESS_TOKEN:-$GITHUB_TOKEN}"
+REPO_URL="${GITHUB_AGENT_REPOSITORY_URL}"
+```
+
+若 `$TOKEN` 为空，向用户询问 PAT（提示：需要 GitHub fine-grained token，赋予目标仓库 Contents: Write 权限）。
+若 `$REPO_URL` 为空，向用户询问远程仓库 URL。
+将 TOKEN 嵌入 remote URL 的方式：
+
+```bash
+REPO_URL_WITH_TOKEN="${REPO_URL/https:\/\//https:\/\/${TOKEN}@}"
+```
+
+## 提供的操作工具
+
+以下每个操作都是独立原子步骤，按需调用，不做隐式组合。
+
+### tool: git init
+
+在指定目录初始化仓库并配置带 PAT 的 remote：
+
+```bash
+cd <target-dir>
+git init
+git branch -m main
+git config user.email "naivesimple@outlook.com"
+git config user.name "Slarper"
+REPO_URL_WITH_TOKEN="${REPO_URL/https:\/\//https:\/\/${TOKEN}@}"
+git remote add origin "$REPO_URL_WITH_TOKEN"
+```
+
+如果 `.git` 已存在但 remote 未配置：
+
+```bash
+REPO_URL_WITH_TOKEN="${REPO_URL/https:\/\//https:\/\/${TOKEN}@}"
+git remote add origin "$REPO_URL_WITH_TOKEN"
+```
+
+如果 `.git` 存在且 remote 已配置，则跳过 init，告知用户。
+
+**注意**：操作前向用户确认目标目录是否正确。
+
+### tool: git push remote
+
+```bash
+cd <target-dir>
+# 先确认 remote 正确
+git remote -v
+# 暂存所有变更
+git add -A
+# 如有变更则提交
+git commit -m "<描述变更的提交信息>"
+# 推送到远程
+git push origin main
+```
+
+若远程分支不存在（首次推送），自动创建：
+
+```bash
+git push -u origin main
+```
+
+推送完成后告知用户推送结果。
+
+### tool: git pull remote (override local)
+
+以远程为准覆盖本地，适合"远程是最新权威，本地可丢弃"的场景：
+
+```bash
+cd <target-dir>
+git fetch origin main
+# 重置本地到远程版本（丢弃所有本地未推送的改动）
+git reset --hard origin/main
+```
+
+**安全提示**：
+- 此操作会丢弃所有本地未推送的提交和未暂存的修改
+- 执行前应明确告知用户此风险，获得确认后再执行
+
+### tool: git pull remote (merge, keep local)
+
+保留本地提交并与远程合并：
+
+```bash
+cd <target-dir>
+git fetch origin main
+git pull origin main
+```
+
+如果 pull 产生冲突，逐一向用户提供选项：
+- **保留远程版本** → `git checkout --theirs <path>` 后 `git add <path>`
+- **保留本地版本** → `git checkout --ours <path>` 后 `git add <path>`
+冲突全部解决后 `git commit -m "Merge remote into local"`
+
+### tool: git status check
+
+查看当前仓库状态：
+
+```bash
+cd <target-dir>
+git status
+git log --oneline -5
+```
+
+## 安全注意事项
+
+1. PAT 只在 remote URL 中临时使用，不会写入任何文件
+2. `.env` 应已加入 `.gitignore`
+3. 每次执行前先确认目标目录，避免操作错误的仓库
+4. `git reset --hard` 等破坏性操作必须先向用户说明风险并获取确认
+5. 不在一个步骤里组合多个操作（如不要同时提交+拉取+推送），保持粒度可控
