@@ -56,6 +56,8 @@ git remote add origin "$REPO_URL_WITH_TOKEN"
 
 ### tool: git push remote
 
+**重要：commit message 不得询问用户，必须由 AI 通过分析 `git diff --staged` 自动生成。**
+
 ```bash
 cd <target-dir>
 # 先确认 remote 正确
@@ -63,7 +65,7 @@ git remote -v
 # 暂存所有变更
 git add -A
 # 如有变更则提交
-git commit -m "<描述变更的提交信息>"
+git commit -m "<AI 根据 git diff --staged 自动生成的提交信息>"
 # 推送到远程
 git push origin main
 ```
@@ -88,6 +90,7 @@ git reset --hard origin/main
 ```
 
 **安全提示**：
+
 - 此操作会丢弃所有本地未推送的提交和未暂存的修改
 - 执行前应明确告知用户此风险，获得确认后再执行
 
@@ -102,9 +105,10 @@ git pull origin main
 ```
 
 如果 pull 产生冲突，逐一向用户提供选项：
+
 - **保留远程版本** → `git checkout --theirs <path>` 后 `git add <path>`
 - **保留本地版本** → `git checkout --ours <path>` 后 `git add <path>`
-冲突全部解决后 `git commit -m "Merge remote into local"`
+  冲突全部解决后 `git commit -m "Merge remote into local"`
 
 ### tool: git status check
 
