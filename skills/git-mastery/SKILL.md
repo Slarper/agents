@@ -13,10 +13,13 @@ if [ -f ~/.agents/.env ]; then
 fi
 TOKEN="${GITHUB_FINE_GRAINED_PERSONAL_ACCESS_TOKEN:-$GITHUB_TOKEN}"
 REPO_URL="${GITHUB_AGENT_REPOSITORY_URL}"
+GIT_EMAIL="${GIT_USER_EMAIL}"
+GIT_NAME="${GIT_USER_NAME}"
 ```
 
 若 `$TOKEN` 为空，向用户询问 PAT（提示：需要 GitHub fine-grained token，赋予目标仓库 Contents: Write 权限）。
 若 `$REPO_URL` 为空，向用户询问远程仓库 URL。
+若 `$GIT_EMAIL` 或 `$GIT_NAME` 为空，向用户询问 git 用户名和邮箱。
 将 TOKEN 嵌入 remote URL 的方式：
 
 ```bash
@@ -35,8 +38,8 @@ REPO_URL_WITH_TOKEN="${REPO_URL/https:\/\//https:\/\/${TOKEN}@}"
 cd <target-dir>
 git init
 git branch -m main
-git config user.email "naivesimple@outlook.com"
-git config user.name "Slarper"
+git config user.email "$GIT_EMAIL"
+git config user.name "$GIT_NAME"
 REPO_URL_WITH_TOKEN="${REPO_URL/https:\/\//https:\/\/${TOKEN}@}"
 git remote add origin "$REPO_URL_WITH_TOKEN"
 ```
