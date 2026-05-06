@@ -19,6 +19,69 @@
       "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
       "installedAt": "2026-05-06T00:17:11.013Z",
       "updatedAt": "2026-05-06T00:17:11.013Z"
+    },
+    "read-arxiv-paper": {
+      "source": "karpathy/nanochat",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/karpathy/nanochat.git",
+      "skillPath": ".claude/skills/read-arxiv-paper/SKILL.md",
+      "skillFolderHash": "5ad1ea92246f068afd3cd29fa7754f70d651a702",
+      "installedAt": "2026-05-03T02:57:34.648Z",
+      "updatedAt": "2026-05-03T02:57:34.648Z"
+    },
+    "firecrawl-scrape": {
+      "source": "firecrawl/cli",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/firecrawl/cli.git",
+      "skillPath": "skills/firecrawl-scrape/SKILL.md",
+      "skillFolderHash": "1784b33814a99a615d765ad16aaa069a1ae79577",
+      "installedAt": "2026-05-03T04:59:00.827Z",
+      "updatedAt": "2026-05-03T04:59:00.827Z"
+    },
+    "browser-use": {
+      "source": "browser-use/browser-use",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/browser-use/browser-use.git",
+      "skillPath": "skills/browser-use/SKILL.md",
+      "skillFolderHash": "a57dcbf8e8e53bcab189cd4649a436b231d5ea13",
+      "installedAt": "2026-05-03T05:50:28.022Z",
+      "updatedAt": "2026-05-03T05:50:28.022Z"
+    },
+    "cloud": {
+      "source": "browser-use/browser-use",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/browser-use/browser-use.git",
+      "skillPath": "skills/cloud/SKILL.md",
+      "skillFolderHash": "1903ad581f1db282b032fcb45d96af420ed34fa2",
+      "installedAt": "2026-05-03T05:50:28.023Z",
+      "updatedAt": "2026-05-03T05:50:28.023Z"
+    },
+    "open-source": {
+      "source": "browser-use/browser-use",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/browser-use/browser-use.git",
+      "skillPath": "skills/open-source/SKILL.md",
+      "skillFolderHash": "c2ef33b26801ee6aac4a083ed939364d186c19fd",
+      "installedAt": "2026-05-03T05:50:28.024Z",
+      "updatedAt": "2026-05-03T05:50:28.024Z"
+    },
+    "remote-browser": {
+      "source": "browser-use/browser-use",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/browser-use/browser-use.git",
+      "skillPath": "skills/remote-browser/SKILL.md",
+      "skillFolderHash": "8439a23eb8183729c37ba2a938c9b73607e43301",
+      "installedAt": "2026-05-03T05:50:28.026Z",
+      "updatedAt": "2026-05-03T05:50:28.026Z"
+    },
+    "just-scrape": {
+      "source": "scrapegraphai/just-scrape",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/scrapegraphai/just-scrape.git",
+      "skillPath": "skills/just-scrape/SKILL.md",
+      "skillFolderHash": "041434111f0c295c70e8f9aae00540b87dcc34f9",
+      "installedAt": "2026-05-03T05:50:28.694Z",
+      "updatedAt": "2026-05-03T05:50:28.694Z"
     }
   },
   "dismissed": {
