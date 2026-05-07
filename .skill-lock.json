@@ -1,14 +1,24 @@
 {
   "version": 3,
   "skills": {
+    "course-designer": {
+      "source": "teachingai/full-stack-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/teachingai/full-stack-skills.git",
+      "skillPath": "skills/teaching-skills/course-designer/SKILL.md",
+      "skillFolderHash": "57666c2d59e24af08c58e9ff2195810da4cae4e0",
+      "pluginName": "teaching-skills",
+      "installedAt": "2026-05-06T00:17:01.636Z",
+      "updatedAt": "2026-05-06T00:17:01.636Z"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/skills.git",
       "skillPath": "skills/find-skills/SKILL.md",
       "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
-      "installedAt": "2026-05-02T01:44:23.821Z",
-      "updatedAt": "2026-05-02T01:44:23.821Z"
+      "installedAt": "2026-05-06T00:17:11.013Z",
+      "updatedAt": "2026-05-06T00:17:11.013Z"
     },
     "read-arxiv-paper": {
       "source": "karpathy/nanochat",
@@ -74,5 +84,7 @@
       "updatedAt": "2026-05-03T05:50:28.694Z"
     }
   },
-  "dismissed": {}
+  "dismissed": {
+    "findSkillsPrompt": true
+  }
 }
