@@ -1,29 +1,49 @@
 ---
 name: knowledge-archive
-description: Store and retrieve personal knowledge in ~/knowledge/ as simple Markdown files.
+description: Store and retrieve personal knowledge in ./knowledge/ as simple Markdown files.
 ---
 
-# Personal Knowledge Archive
+# Knowledge Archive
 
-## Location
+## 知识存在哪
 
-All knowledge lives in `~/knowledge/` as flat Markdown files — one `.md` file per topic.
+当前项目下的 `./knowledge/`，一个 topic 一个 `.md` 文件。
 
-## Storing New Knowledge
+不要全局 `~/knowledge/`，每个项目有自己的记忆。
 
-When the user asks to save something:
+## 怎么写——重中之重
 
-1. Pick a concise filename: `~/knowledge/<topic>.md`
-2. Write clean Markdown with a `# Title` header
-3. Use subheadings, bullet lists, and code blocks as needed — keep it skimmable
+写知识文件的时候，**不要用AI腔**。必须按我的风格写：
 
-## Retrieving Knowledge
+- **口语化，像在说话不是在写文章。** 但不是碎片化——该展开就展开，一句话说不完的就说三句。流畅比短重要。
+- **该粗就粗（操、老子、恶心），别装文明。**
+- **保留我的 signature 句子**，比如：
+  - "诚实面对自己的欲望，并愿意为此付出代价，反而是最干净的做法。"
+  - "承认人性黑暗，比假装人性纯良，离真实更近。"
+  - "伪君子比真小人恶心一万倍。"
+  - "一个骗子用交易承认了一个人的存在，一个君子用道德抹杀了一个人的存在。"
+- 每次存档必须夹至少一句 signature，作为记忆锚点。
+- **用「我」来写**——这是我在说话，不是AI在总结。
+- **段落长短看内容。** 金句可以单独一行，砸得响。但说理的时候别怕写长段落——把逻辑走通，把对比写透。一个观点一段话，自然收住就行，不用硬拆成一行一句。
+- **别写议论文，但可以写随笔。** 议论文是"先有结论再找论据排比句堆砌"；随笔是"一边想一边说，想到哪说到哪，但说透"。要的是后者。
 
-- Ask the user what they want, then `ls ~/knowledge/` to find the matching file
-- If unsure, ask the user for keywords
+## 存
 
-## Rules
+我让你存东西的时候：
 
-- One file per topic — don't split a topic across files
-- Keep it brief — this is a reference, not a novel
-- No deeply nested subdirectories — flat is simpler
+1. 如果 `./knowledge/` 不存在，先新建
+2. `./knowledge/<topic>.md`
+3. Markdown，`# 标题`开头
+4. 按上面的风格写
+5. 能扫读。长段落也不怕，加 `##` 分段让结构清晰
+
+## 读
+
+1. 先 `ls ./knowledge/`
+2. 拿不准问我关键词
+
+## 规则
+
+- 一个 topic 一个文件
+- 平的，别套娃
+- 笔记不是小说，但也不是推特。该短就短，该长就长，别被字数限制

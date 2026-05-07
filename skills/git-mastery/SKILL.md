@@ -8,8 +8,15 @@ description: 为任意本地目录配置 git 远程仓库（含 PAT 鉴权），
 执行任何操作前，先读取凭证：
 
 ```bash
-if [ -f ~/.agents/.env ]; then
-  source ~/.agents/.env
+if [ -f ./.env ]; then
+  source ./.env
+elif [ -f .env.example ]; then
+  echo "⚠️  ./.env 不存在。我已读取 .env.example 模板，请对照创建："
+  cat .env.example
+  echo ""
+  echo "创建方式：cp .env.example .env 并填入真实凭证"
+  # 询问用户是否希望 AI 协助创建 .env
+  # 若用户同意，逐项询问 TOKEN / EMAIL / NAME 的值并写入 .env
 fi
 TOKEN="${GITHUB_FINE_GRAINED_PERSONAL_ACCESS_TOKEN:-$GITHUB_TOKEN}"
 GIT_EMAIL="${GIT_USER_EMAIL}"
